@@ -4,9 +4,12 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MoviesModule } from './movies/movies.module';
 import { ProducersModule } from './producers/producers.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),  
+    TypeOrmModule.forRoot({
       type: 'sqlite',
       database: ':memory:',
       synchronize: true,

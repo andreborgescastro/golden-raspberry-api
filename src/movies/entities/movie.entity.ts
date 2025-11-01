@@ -1,6 +1,7 @@
 import { Producer } from '../../producers/entities/producer.entity';
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
+@Unique('uq_movies_title_year', ['title', 'year'])
 @Entity({ name: 'movies' })
 export class Movie {
   @PrimaryGeneratedColumn()
