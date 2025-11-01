@@ -12,7 +12,7 @@ import { AwardsModule } from './awards/awards.module';
     ConfigModule.forRoot({ isGlobal: true }),  
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: ':memory:',
+      database: process.env.SQLITE_DB || ':memory:',
       synchronize: true,
       autoLoadEntities: true, // carrega entidades registradas nos módulos
       logging: true,
