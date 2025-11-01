@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Producer } from '../../producers/entities/producer.entity';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'movies' })
 export class Movie {
@@ -16,5 +17,13 @@ export class Movie {
 
   @Column({ type: 'boolean', default: false })
   winner!: boolean;
+
+  @ManyToMany(() => Producer, (p) => p.movies, { cascade: ['insert'] })
+  @JoinTable({
+    name: 'movies_producers',
+    joinColumn: { name: 'movie_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'producer_id', referencedColumnName: 'id' },
+  })
+  producers!: Producer[];
 
 }

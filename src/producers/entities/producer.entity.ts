@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn, Index } from 'typeorm';
+import { Movie } from '../../movies/entities/movie.entity';
+import { Column, Entity, PrimaryGeneratedColumn, Index, ManyToMany } from 'typeorm';
 
 @Entity({ name: 'producers' })
 export class Producer {
@@ -8,4 +9,7 @@ export class Producer {
   @Index({ unique: true })
   @Column({ type: 'text' })
   name!: string;
+
+  @ManyToMany(() => Movie, (m) => m.producers)
+  movies!: Movie[];
 }
