@@ -2,6 +2,8 @@ import { Module, OnModuleInit, Logger } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MoviesModule } from './movies/movies.module';
+import { ProducersModule } from './producers/producers.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -10,7 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
       autoLoadEntities: true, // carrega entidades registradas nos módulos
       logging: true,
-    }),],
+    }), MoviesModule, ProducersModule,],
   controllers: [AppController],
   providers: [AppService],
 })
