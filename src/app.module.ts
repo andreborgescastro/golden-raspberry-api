@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MoviesModule } from './movies/movies.module';
 import { ProducersModule } from './producers/producers.module';
 import { ConfigModule } from '@nestjs/config';
+import { AwardsModule } from './awards/awards.module';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
       autoLoadEntities: true, // carrega entidades registradas nos módulos
       logging: true,
-    }), MoviesModule, ProducersModule,],
+    }), MoviesModule, ProducersModule, AwardsModule,],
   controllers: [AppController],
   providers: [AppService],
 })
