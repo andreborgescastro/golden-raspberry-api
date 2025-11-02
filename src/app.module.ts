@@ -1,6 +1,4 @@
 import { Module, OnModuleInit, Logger } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MoviesModule } from './movies/movies.module';
 import { ProducersModule } from './producers/producers.module';
@@ -16,9 +14,7 @@ import { AwardsModule } from './awards/awards.module';
       synchronize: true,
       autoLoadEntities: true, // carrega entidades registradas nos módulos
       logging: false,
-    }), MoviesModule, ProducersModule, AwardsModule,],
-  controllers: [AppController],
-  providers: [AppService],
+    }), MoviesModule, ProducersModule, AwardsModule,]
 })
 export class AppModule implements OnModuleInit {
   private readonly logger = new Logger(AppModule.name);
