@@ -26,7 +26,7 @@ function splitProducers(raw?: string | null): string[] {
 }
 
 function toBoolWinner(x?: string): boolean {
-  return !!x && /^yes$/i.test(x.trim());
+  return (x ?? '').trim().toLowerCase() === 'yes';
 }
 
 export async function runSeed(app: INestApplication) {
