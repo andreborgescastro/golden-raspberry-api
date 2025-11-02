@@ -15,7 +15,7 @@ import { AwardsModule } from './awards/awards.module';
       database: process.env.SQLITE_DB || ':memory:',
       synchronize: true,
       autoLoadEntities: true, // carrega entidades registradas nos módulos
-      logging: true,
+      logging: false,
     }), MoviesModule, ProducersModule, AwardsModule,],
   controllers: [AppController],
   providers: [AppService],
