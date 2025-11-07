@@ -2,6 +2,8 @@ import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
+import path from 'node:path';
+import { runSeed } from '../src/seeds/seed';
 
 describe('GET /awards/intervals (integration)', () => {
   let app: INestApplication;
@@ -9,7 +11,11 @@ describe('GET /awards/intervals (integration)', () => {
   beforeAll(async () => {
     const modRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
     app = modRef.createNestApplication();
+
+    process.env.MOVIES_CSV_PATH = path.resolve(__dirname, '../assets/Movielist.csv');
+
     await app.init();
+    await runSeed(app);
   });
 
   afterAll(async () => { await app.close(); });
@@ -29,6 +35,14 @@ describe('GET /awards/intervals (integration)', () => {
     expect(Array.isArray(body.max)).toBe(true);
 
     for (const item of [...body.min, ...body.max]) {
+      
+      // valida as propriedades do objeto de retorno
+      expect(item).toHaveProperty('producer');
+      expect(item).toHaveProperty('interval');
+      expect(item).toHaveProperty('previousWin');
+      expect(item).toHaveProperty('followingWin');
+      
+      // valida o tipo dos atributos
       expect(typeof item.producer).toBe('string');
       expect(typeof item.interval).toBe('number');
       expect(typeof item.previousWin).toBe('number');
@@ -47,6 +61,7 @@ describe('GET /awards/intervals (integration)', () => {
     const { min, max } = res.body as { min: any[]; max: any[] };
 
     const assertTiedProducers = (list: any[]) => {
+
       // Valida igualdade quando há mais de um registro (empate).
       if (Array.isArray(list) && list.length > 1) {
         const intervals = list.map((x) => x.interval);
