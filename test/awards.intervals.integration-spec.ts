@@ -12,7 +12,7 @@ describe('GET /awards/intervals (integration)', () => {
     const modRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
     app = modRef.createNestApplication();
 
-    process.env.MOVIES_CSV_PATH = path.resolve(__dirname, '../assets/Movielist.csv');
+    process.env.MOVIES_CSV_PATH = path.resolve(__dirname, 'fixtures/test-accepted-csv-sample.csv');
 
     await app.init();
     await runSeed(app);
