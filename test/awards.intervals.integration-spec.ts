@@ -33,8 +33,13 @@ describe('GET /awards/intervals (integration)', () => {
     expect(body).toHaveProperty('max');
     expect(Array.isArray(body.min)).toBe(true);
     expect(Array.isArray(body.max)).toBe(true);
+    
+    const testCases = [...body.min, ...body.max]
 
-    for (const item of [...body.min, ...body.max]) {
+    //Evita massa de teste sem casos para validação
+    expect(testCases.length).toBeGreaterThan(0)
+
+    for (const item of testCases) {
       
       // valida as propriedades do objeto de retorno
       expect(item).toHaveProperty('producer');
